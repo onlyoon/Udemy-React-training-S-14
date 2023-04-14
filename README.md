@@ -1,24 +1,20 @@
 
-----
-#### 리엑트 앱 내부 혹은 브라우저의 자바스크립트 코드를 통해서 데이터베이스와 직접통신을 하면 안된다.
-
-<div style="font-size: 20px; color: red; font-weight: 600">왜 안될까?</div>
-
+### ❗❗ 리엑트 앱 내부 혹은 브라우저의 자바스크립트 코드를 통해서 데이터베이스와 직접통신을 하면 안된다.
+---
+❓**왜 안될까**❓
 만약, 직접 연결을 하게 된다면 해당 코드를 통해 **데이터베이스**의 **인증 정보**를 **노출**을 하게 될 것이다. 
-
 왜냐하면 브라우저에서 실행되는 **모든 자바스크립트 코드**는 웹사이트의 **유저**들도 **접근**이 **가능**하기 때문이다.
-
 직접 통신 외에 다른 방법은 **백엔드 서버( 백엔드 API )** 을 사용하는 것
-
 브라우저에서 실행되는게 아닌 다른 서버에서 실행된다.
 데이터베이스와 통신하는 백엔드 앱은 사용자가 브라우저에서 백엔드 코드를 확인하기가 어렵기 때문에 인증 코드를 안정적으로 보관 가능.
-####
-----
-#### API (Application Programming Interface)
-
+###
+---
+### ❗❗ API (Application Programming Interface)
+---
 HTTP요청에 대한 API는 REST API 혹은 GraphQL API를 말한다. 
-
-##### REST API
+---
+#### ❗ REST API
+---
 - 다중 엔드포인트 ( Multiple Endpoint )
 	 Endpoint: API가 서버에서 리소스에 접근할 수 있도록 가능하게 하는 URL
 	 EX.) GET /users, POST /product, ...
@@ -27,6 +23,7 @@ HTTP요청에 대한 API는 REST API 혹은 GraphQL API를 말한다.
 - 무상태 ( Stateless )
 	 클라이언트-서버 관계에서 서버가 클라이언트 상태를 보존하지 않음, server는 단순히 요청이 오면 응답을 보내는 역할만 수행, 관리는 client가 한다.
 	 인증도 보존이 가능하다.
+---
 - 구조
 	 - HTTP Verb - Path - Body
 		 `POST/user { name:'Max' }`
@@ -64,12 +61,10 @@ HTTP요청에 대한 API는 REST API 혹은 GraphQL API를 말한다.
 	 - 서버-클라이언트 구조
 		 클라이언트-사이드에서 **Request**를 보내면
 		 서버-사이드에서 해당 **Endpoint**를 구문분석하고, **Response**를 보내는 방식
-
-![[Pasted image 20230406112233.png]]
-
-
-#####
-##### GraphQL API
+---
+####
+#### ❗ GraphQL API
+---
 - 단일 엔드포인트 ( One Endpoint Only )
 	 EX.) POST /graphQL
 - JSON 데이터
@@ -77,6 +72,7 @@ HTTP요청에 대한 API는 REST API 혹은 GraphQL API를 말한다.
 - 무상태 ( Stateless )
 	 클라이언트-서버 관계에서 서버가 클라이언트 상태를 보존하지 않음, server는 단순히 요청이 오면 응답을 보내는 역할만 수행, 관리는 client가 한다.
 	 인증도 보존이 가능하다.
+---
 - 구조
 	 -  HTTP Verb - Path - Body
 		`POST /graphql { query:'query:...' }`
@@ -97,30 +93,32 @@ HTTP요청에 대한 API는 REST API 혹은 GraphQL API를 말한다.
 			}
 - +요소: 검색하려는 데이터를 구체적으로 가져오거나 보낼 수 있다.
 	 데이터 받아오는 양을 줄일 수 있다.
-
+---
 APOLLO 패키지를 사용할 시, graphQL을 보다 효율적으로 사용할 수 있다.
-#####
-
+---
 ####
-----
-#### HTTP 요청을 하는 방법 2가지
 
+###
+---
+### ❗❗ HTTP 요청을 하는 방법 2가지
+---
 리엑트의 본질은 JS이기 때문에 우리가 원하는 어떤 HTTP 요청이든 전달이 가능
-
--   axois 패키지: 어떤 자바스크립트 라이브러리를 사용하는 것에 관계 없이ㅋ HTTP 요청
+---
+-   axois 패키지: 어떤 자바스크립트 라이브러리를 사용하는 것에 관계 없이 HTTP 요청
 -   JS 내장 Fetch API: 브라우저 내장형 HTTP 요청 & 응답 처리 브라우저가 사용할 수 있게 해주는 함수 
 	- `fetch('https://', { method: POST });` 
-
+---
 위 함수는 promise 객체를 반환
 `promise`객체는 약속에 대한 앞으로의 발생되는 오류나, 호출에 대한 응답 반응을 알려준다. 
 `promise`객체는 어떠한 즉각적 행동 대신, 데이터를 전달하는 객체이다. 
 HTTP 요청 전송은 비동기 작업이기 때문에, 코드의 결과를 바로 사용할 수 없으니,
 사용하는 방법이 또 2가지가 있는데, `.then()`메서드와 `async`, `await` 문법을 이용해서 사용하는 방법이 있다.
-
+---
 1. `then()` 메서드
 	  `.then(response => { return response.json(); })` 메서드를 활용해서 받아온 응답을 JSON으로 처리하고 
 	  그 뒤  `then(data => {})` 메서드를 사용해서 해당 JSON 데이터를 어떻게 활용할 것인지, 알려주며,
 	  `.catch()` 메서드를 활용해서 오류를 잡아낸다.
+---
 ```js
 function fetchMoviesHandler() {
 	const response = await fetch('https://swapi.dev/api/films', { 
@@ -145,8 +143,9 @@ function fetchMoviesHandler() {
 		)
 }
 ```
-
+---
 2.  `async`, `await` 문법
+---
 ```js
 async function fetchMoviesHandler() {
 	const response = await fetch('https://swappi.dev/api/films', { 
@@ -167,19 +166,18 @@ async function fetchMoviesHandler() {
 	});
 }
 ```
-
+---
 ####
 ----
-#### HTTP 오류 처리
-
+#### ❗ HTTP 오류 처리
+---
 [HTTP 응답 상태 코드](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
-
+---
 `.then` 메서드를 활용해서 HTTP 요청을 처리한다면 `.catch` 메서드를 활용해서 오류 확인
-
 `async`, `await` 문법을 사용하면 `try-catch`를 활용
-
 axios 패키지 라이브러리는 에러 상태 코드를 실제 에러로 취급하지만,
 FetchAPI는 에러 상태 코드를 실제 에러로 취급하지 않는다.
+---
 - 실제 에러 취급 방법
 ```js
 try {
@@ -190,18 +188,17 @@ try {
 	setError(error.message);
 }
 ```
-
+---
 ####
-----
-#### 요청에 useEffect() 사용하기
-
+#### ❗ 요청에 useEffect() 사용하기
+---
 사용자가 페이지를 방문하자마자 데이터를 가지고 오고 싶다면,
 useEffect() 훅을 사용한다.
 
 HTTP 요청 전송은 컴포넌트의 상태를 바꾸기 때문에 
 <button>요청</button> 버튼을 클릭할 때마다 useState() 훅을 사용하면 컴포넌트의 재평가가 발생할 때마다 호출되기 때문에 무한 루프 문제가 발생할 가능성이 높으니 useEffect() 훅을 사용한다.
 그래서 useEffect 훅은 컴포넌트가 렌더링(재렌더링 X)되는 주기 안에서 사용되어야 하는 코드가 있을 때 유용
-
+---
 ```js
 useEffect(() => {
 	fetchMoviesHandler();
@@ -212,6 +209,5 @@ useEffect(() => {
 const fetchMoviesHandler = useCallback(() => {}, []);
 // 위의 fetchMoviesHandler 함수가 재사용되는 것을 막기 위해 사용하는 useCallback // 함수
 ```
-
+---
 ####
-----
